@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Результаты теста</h1>
+    <h2>Верные ответы</h2>
+    <ul>
+        {% for testResult in results %}
+            {% if testResult.correct == true %}
+                <li>{{ testResult.question.text }}</li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+
+    <h2>Ошибки</h2>
+    <ul>
+        {% for testResult in results %}
+            {% if testResult.correct == false and testResult.selectedAnswers is not empty %}
+                <li>{{ testResult.question.text }}</li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+
+    <h2>Без ответа</h2>
+    <ul>
+        {% for testResult in results %}
+            {% if testResult.correct == false and testResult.selectedAnswers is empty %}
+                <li>{{ testResult.question.text }}</li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+    <a href="{{ path('test_home') }}">Новый тест</a>
+{% endblock %}

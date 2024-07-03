@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Тест</h1>
+    <form action="{{ path('test_submit', { id: testSession.id }) }}" method="get">
+        {% for question in questions %}
+            <div>
+                <p>{{ question.text }}</p>
+                {% for answer in question.ShuffledAnswers %}
+                    <label>
+                        <input type="checkbox" name="answers[{{ question.id }}][]" value="{{ answer.id }}">
+                        {{ answer.text }}
+                    </label>
+                {% endfor %}
+            </div>
+        {% endfor %}
+        <button type="submit">Отправить</button>
+    </form>
+{% endblock %}
